@@ -7,16 +7,22 @@ export const routes: Routes = [
 
     {
         path:'',
-        component: LayoutPageComponent
-    },
-    {
-        path:'login',
-        loadComponent: ()=>import ('./pages/login-page/login-page.component').then(m => m.LoginPageComponent)
-    },
-    {
-        path:'register',
-        loadComponent: ()=> import ('./pages/register/register.component').then( m => m.RegisterComponent )
+        component: LayoutPageComponent,
+        children:[
+            {
+                path:'login',
+                loadComponent: ()=>import ('./pages/login-page/login-page.component').then(m => m.LoginPageComponent)
+            },
+            {
+                path:'new-account',
+                loadComponent: ()=> import ('./pages/register/register.component').then( m => m.RegisterComponent )
+            },
+            {
+                path:'**', redirectTo:'login', pathMatch:'full'
+            }
+        ]
     }
+
 
 ];
 

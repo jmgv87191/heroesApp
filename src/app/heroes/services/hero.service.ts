@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Hero } from '../interfaces/hero';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { error } from 'node:console';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,9 @@ export class HeroService {
 
   getHeroById( id:string ):Observable<Hero | undefined>{
     return this.http.get<Hero>(`${ this.baseUrl }/heroes/${id}`)
+    .pipe(
+      catchError(error => of (undefined))
+    )
   }
 
 }

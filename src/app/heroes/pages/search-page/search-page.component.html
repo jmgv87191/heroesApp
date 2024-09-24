@@ -8,10 +8,25 @@
         matInput
         type="text"
         [formControl]="searchInput"
+        (input)="searcHero()"
+        [matAutocomplete] = "auto"
         >
+
+        <mat-autocomplete #auto="matAutocomplete"
+            (optionSelected)="onSelectedOption( $event )"
+        
+        >
+            @for (option of heroes; track option) {
+                <mat-option [value]="option.superhero">{{option.superhero}}</mat-option>
+            }
+        </mat-autocomplete>
+
+
+
+
     </mat-form-field>
 
 
-
+    {{ selectedHero | json  }}
 
 </div>

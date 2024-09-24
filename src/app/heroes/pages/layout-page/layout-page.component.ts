@@ -30,11 +30,11 @@ export class LayoutPageComponent {
       icon: 'add',
       url:'./new-hero'
     },
-    {
+/*     {
       laber:'Buscar',
       icon: 'search',
       url:'./search'
-    },
+    }, */
   ]
 
 }

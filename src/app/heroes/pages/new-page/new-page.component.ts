@@ -6,8 +6,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Publisher } from '../../interfaces/hero';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -15,7 +16,7 @@ import { Publisher } from '../../interfaces/hero';
   selector: 'app-new-page',
   standalone: true,
   imports: [MatDividerModule,MatCardModule,MatFormFieldModule,MatInputModule,MatSelectModule,
-    MatButtonModule,MatIconModule
+    MatButtonModule,MatIconModule,CommonModule, ReactiveFormsModule
   ],
   templateUrl: './new-page.component.html',
   styleUrl: './new-page.component.css'
@@ -42,5 +43,12 @@ export class NewPageComponent {
       desc: 'Marvel - Comics'
     }
   ]
+
+  onSubmit(){
+    console.log({
+      formIsValid: this.heroForm.valid,
+      value: this.heroForm.value,
+    })
+  }
 
 }

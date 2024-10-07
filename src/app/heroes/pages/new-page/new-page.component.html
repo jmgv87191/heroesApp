@@ -11,31 +11,31 @@
 
         <mat-card>
             <mat-card-content>
-                <div class="grid">
+                <form class="grid" [formGroup]="heroForm"  (ngSubmit)="onSubmit()" >
 
                     <mat-form-field class="col-12 sm:col-6">
                         <mat-label>Super Heroe</mat-label>
-                        <input type="text" matInput required >
+                        <input type="text" matInput required formControlName="superhero" >
                     </mat-form-field>
 
                     <mat-form-field class="col-12 sm:col-6">
                         <mat-label>Alter ego</mat-label>
-                        <input type="text" matInput required >
+                        <input type="text" matInput required formControlName="alter_ego" >
                     </mat-form-field>
 
                     <mat-form-field class="col-12">
                         <mat-label>Primera aparicion</mat-label>
-                        <input type="text" matInput required >
+                        <input type="text" matInput required formControlName="first_appearance" >
                     </mat-form-field>
 
                     <mat-form-field class="col-12">
                         <mat-label>Personajes</mat-label>
-                        <input type="text" matInput required >
+                        <input type="text" matInput required formControlName="characters" >
                     </mat-form-field>
 
                     <mat-form-field class="col-12">
                         <mat-label>Creador</mat-label>
-                        <mat-select  required="" >
+                        <mat-select  required  formControlName="publisher" >
                             @for (item of publishers; track $index) {
                                 <mat-option [value]="item.id" >
                                     {{ item.desc }}
@@ -44,14 +44,19 @@
                         </mat-select>
                     </mat-form-field>
 
-                </div>
+                    <mat-form-field class="col-12">
+                        <mat-label>Alternative Image</mat-label>
+                        <input type="text" matInput  formControlName="alt_img" >
+                    </mat-form-field>
+
+                </form>
                 <div class="cont_btns">
                     <button mat-flat-button color="warn" >
                         <mat-icon>delete icon</mat-icon>
                         Borrar
                     </button>
     
-                    <button mat-flat-button color="primary">
+                    <button mat-flat-button color="primary" (click)="onSubmit()" >
                         <mat-icon>save</mat-icon>
                         Guardar
                     </button>

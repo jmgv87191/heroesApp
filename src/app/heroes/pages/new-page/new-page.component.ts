@@ -7,8 +7,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Publisher } from '../../interfaces/hero';
+import { Hero, Publisher } from '../../interfaces/hero';
 import { CommonModule } from '@angular/common';
+import { HeroService } from '../../services/hero.service';
+import { HeroImagePipe } from '../../pipes/hero-image.pipe';
 
 
 
@@ -16,7 +18,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-new-page',
   standalone: true,
   imports: [MatDividerModule,MatCardModule,MatFormFieldModule,MatInputModule,MatSelectModule,
-    MatButtonModule,MatIconModule,CommonModule, ReactiveFormsModule
+    MatButtonModule,MatIconModule,CommonModule, ReactiveFormsModule, HeroImagePipe
   ],
   templateUrl: './new-page.component.html',
   styleUrl: './new-page.component.css'
@@ -44,11 +46,19 @@ export class NewPageComponent {
     }
   ]
 
+  constructor( private heroService: HeroService ){}
+
+  get currentHero(): Hero{
+    const hero = this.heroForm.value as Hero ;
+
+    return hero;
+  }
+
   onSubmit(){
-    console.log({
-      formIsValid: this.heroForm.valid,
-      value: this.heroForm.value,
-    })
+
+    if ( this.heroForm.invalid ) return;
+
+
   }
 
 }

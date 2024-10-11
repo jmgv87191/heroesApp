@@ -1,5 +1,5 @@
 <h1>
-    Editar / Agregar
+    {{ currentHero.id ? 'Editar' : 'Agregar' }}
     Heroe
 </h1>
 
@@ -51,11 +51,13 @@
 
                 </form>
                 <div class="cont_btns">
-                    <button mat-flat-button color="warn" >
-                        <mat-icon>delete icon</mat-icon>
-                        Borrar
-                    </button>
-    
+
+                    @if (currentHero.id) {
+                        <button mat-flat-button color="warn" >
+                            <mat-icon>delete icon</mat-icon>
+                            Borrar
+                        </button>
+                    }
                     <button mat-flat-button color="primary" (click)="onSubmit()" >
                         <mat-icon>save</mat-icon>
                         Guardar

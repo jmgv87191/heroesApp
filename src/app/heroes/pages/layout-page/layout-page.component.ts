@@ -34,7 +34,7 @@ export class LayoutPageComponent {
       laber:'Buscar',
       icon: 'search',
       url:'./search'
-    }, */
+    },  */
   ]
 
 }

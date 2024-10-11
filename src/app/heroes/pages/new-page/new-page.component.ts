@@ -58,6 +58,13 @@ export class NewPageComponent {
 
     if ( this.heroForm.invalid ) return;
 
+    if (this.currentHero.id) {
+      this.heroService.updateHero( this.currentHero )
+      .subscribe( hero => {
+        // TODO: mostrar snackbar
+      } )
+    }
+
 
   }
 

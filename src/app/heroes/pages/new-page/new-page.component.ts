@@ -13,14 +13,28 @@ import { HeroService } from '../../services/hero.service';
 import { HeroImagePipe } from '../../pipes/hero-image.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar'
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
   selector: 'app-new-page',
   standalone: true,
   imports: [MatDividerModule,MatCardModule,MatFormFieldModule,MatInputModule,MatSelectModule,
-    MatButtonModule,MatIconModule,CommonModule, ReactiveFormsModule, HeroImagePipe
+    MatButtonModule,MatIconModule,CommonModule, ReactiveFormsModule, HeroImagePipe,
+    ConfirmDialogComponent
   ],
   templateUrl: './new-page.component.html',
   styleUrl: './new-page.component.css'
@@ -51,8 +65,12 @@ export class NewPageComponent implements OnInit {
   constructor( private heroService: HeroService,
       private aRoute:ActivatedRoute,
       private router:Router,
-      private snackbar: MatSnackBar
+      private snackbar: MatSnackBar,
+      private dialog: MatDialog
   ){}
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   
   get currentHero(): Hero{
@@ -103,9 +121,33 @@ export class NewPageComponent implements OnInit {
 
   }
 
+  onDeleteHero(){
+
+    if (!this.currentHero.id) throw Error ('Hero id is required');
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: this.heroForm.value
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (!result) return;
+
+      this.heroService.deleteById( this.currentHero.id ).subscribe((data)=>{
+        this.router.navigate(['/'])
+      })
+
+    });
+
+  }
+
+
 
   showSnackbar( message: string ){
-    this.snackbar.open(message, 'done')
+    this.snackbar.open(message, 'done',{
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    })
   }
 
 

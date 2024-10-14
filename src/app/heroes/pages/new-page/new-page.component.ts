@@ -1,7 +1,7 @@
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, inject} from '@angular/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -105,7 +105,10 @@ export class NewPageComponent implements OnInit {
 
 
   showSnackbar( message: string ){
-    this.snackbar
+    this.snackbar.open(message, 'done')
   }
+
+
+
 
 }

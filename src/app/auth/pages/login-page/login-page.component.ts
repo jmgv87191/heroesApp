@@ -6,7 +6,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -18,5 +19,16 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login-page.component.css'
 })
 export class LoginPageComponent {
+
+  constructor( private authService: AuthService,
+    private router:Router
+  ){}
+
+  onLogin( ){
+    this.authService.login( "jmgv@gmail.com", "123456" ).subscribe(data=>{
+      this.router.navigate(['/'])
+    })
+
+  }
 
 }
